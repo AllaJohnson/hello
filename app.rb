@@ -1,13 +1,14 @@
 # encoding: utf-8
 require 'sinatra'
   get '/' do
-    erb :index
+    erb :'index.html'
   end  
 
   get '/about' do
-     erb :about
+     erb :'about.html'
+     
   end  
 
   get '/contacts' do
-     erb :contacts  
+     erb :'contacts.html'  
   end
