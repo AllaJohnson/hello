@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'sinatra'
   get '/' do
-    erb :'index.html', :layout 
+    erb :'index.html'
   end  
 
   get '/about' do
