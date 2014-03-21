@@ -7,10 +7,10 @@
 <body>
 
 <%= yield %>
-<% def hit (times)
-  times += 1
+<% def hit_count (hit)
+  hit += 1
 end %>
-<%= "Сколько народу! #{hit 0}" %>
+<%= "Сколько народу! #{hit_count 0}" %>
 
 </body>
 </html>
