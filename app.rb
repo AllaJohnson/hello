@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'sinatra'
 
-@products = [ "prod1",  "prod2",  "prod3",  "prod4",  "prod5" ]
+@products = ["prod1", "prod2", "prod3", "prod4", "prod5"]
 
 get '/' do  
   erb :'index.html'
