@@ -4,22 +4,30 @@ require 'sinatra'
 def hit
 @@hit_counts += 1
 end
-prod = { "prod1" => "10 $", "prod2" => "13 $", "prod3" => "14 $", "prod4" => "18 $", "prod5" => "20 $" }
+
 get '/' do
   hit
   erb :'index.html'
-end  
+end 
+ 
 get '/about' do 
   hit
   erb :'about.html'
-end  
+end 
+ 
 get '/contacts' do 
   hit 
   erb :'contacts.html'  
 end
+
 get '/products' do
   hit
-  @products = [ "prod1",  "prod2",  "prod3",  "prod4",  "prod5" ]
-  @prods = [ { :name =>  "prod1", :cost => "10$", :kind => "bread"}, { :name =>  "prod2", :cost => "13$", :kind => "butter" }, { :name =>  "prod3", :cost => "1$", :kind => "shugar" }, { :name =>  "prod4", :cost => "3$", :kind => "cake" }, { :name =>  "prod5", :cost => "18$", :kind => "cheese" } ]
+  @prods = [ 
+    { :name =>  "Хлеб", :cost => "32 руб.", :kind => "Бородинский" }, 
+    { :name =>  "Масло", :cost => "130 руб.", :kind => "Анкор" }, 
+    { :name =>  "Сахар", :cost => "62 руб.", :kind => "Кусковой" },
+    { :name =>  "Тортик", :cost => "630 руб.", :kind => "Нежность" }, 
+    { :name =>  "Сыр", :cost => "560 руб.", :kind => "Камамбер" } 
+    ]
   erb :'products.html'
 end

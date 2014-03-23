@@ -1,13 +1,7 @@
 <ul>
-	<% @products.each do |product| %>
-	<li> <%= product %> </li>
-	<% end %>
-</ul>
-<br>
-<ul>
 	<% @prods.each do |e| %>
-	<li> <%= " #{e[:name]} " %> <%= " #{e[:cost]} " %> <%= " #{e[:kind]} " %> </li>
+	<li> <%= "Наименование: #{e[:name]}, Цена:  #{e[:cost]}, Категория: #{e[:kind]}" %> </li>
 	<% end %>
 </ul>
 	
-		
+	
