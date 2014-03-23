@@ -2,6 +2,12 @@
 	<% @products.each do |product| %>
 	<li> <%= product %> </li>
 	<% end %>
-</ul>	
+</ul>
+<br>
+<ul>
+	<% @prods.each do |e| %>
+	<li> <%= " #{e[:name]} " %> <%= " #{e[:cost]} " %> <%= " #{e[:kind]} " %> </li>
+	<% end %>
+</ul>
 	
 		
