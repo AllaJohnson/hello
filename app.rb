@@ -1,11 +1,13 @@
 # encoding: utf-8
 require 'sinatra'
+
 @@hit_counts = 0
 def hit
 @@hit_counts += 1
 end
 
 get '/' do
+  @users = { :name =>  " Алла ", :age => "16", :sex => "ж" }
   hit
   erb :'index.html'
 end 
