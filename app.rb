@@ -7,7 +7,6 @@ def hit
 end
 
 get '/' do
-  @users = { :name =>  " Алла ", :age => "16", :sex => "ж" }
   hit
   erb :'index.html'
 end 
