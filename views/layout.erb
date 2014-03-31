@@ -48,13 +48,16 @@
     </div>
 
     <div class="container">
-
-      <div class="starter-template">
-        <br><br><h1><%= @h %></h1>
+		<div class="row">
+		  <div class="col-md-2"></div>
+		  <div class="col-md-8" text-align: center; ><br><br>
+			<h1><%= @h %></h1>
         <p class="lead">
         <%= yield %>
 	    </p>
-      </div>
+	      </div>
+		  <div class="col-md-2"></div>
+        </div>
 
     </div><!-- /.container -->
 
