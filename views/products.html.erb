@@ -1,7 +1,7 @@
 <h1> <% @h = 'ПРОДУКТЫ:' %> </h1>
 <ul>
 	<% @prods.each do |e| %>
-	<li style="text-align:left"> <%= "Наименование: #{e[:name]}, Цена:  #{e[:cost]}, Категория: #{e[:kind]}" %> </li>
+	  <li style="text-align:left"> <%= "Наименование: #{e[:name]}, Цена:  #{e[:cost]}, Категория: #{e[:kind]}" %> </li>
 	<% end %>
 </ul>
 	
