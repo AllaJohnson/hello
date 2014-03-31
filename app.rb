@@ -11,8 +11,8 @@ get '/' do
   erb :'index.html'
 end 
  
-get '/about' do 
-  hit
+get '/about' do
+   hit
   erb :'about.html'
 end 
  
