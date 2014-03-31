@@ -1,9 +1,11 @@
 # encoding: utf-8
 require 'sinatra'
 
+
 @@hit_counts = 0
+
 def hit
-@@hit_counts += 1
+  @@hit_counts += 1
 end
 
 get '/' do
