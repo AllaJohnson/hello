@@ -4,12 +4,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">	
+  
   <title>Создаем приложение на Синатре</title>
+  
+  <!-- Stylesheets -->
   <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/my-custom.css" rel="stylesheet">
 </head>
 
 <body>
 
+  <!-- Navigation -->
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -24,7 +29,6 @@
 
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="divider-vertical"></li>
           <li class="<%= 'active' if request.path_info == '/' %>"><a href="/">Главная </a></li>
           <li class="<%= 'active' if request.path_info == '/products' %>"><a href="/products">Продукты</a></li>
           <li class="<%= 'active' if request.path_info == '/about' %>"><a href="/about">О нас</a></li>
@@ -33,29 +37,23 @@
       </div> <!--/.nav-collapse -->
     </div>
   </div>
-  
+  <!-- End of Navigation -->
+
+  <!-- Page Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-2"> 
-      </div>
-    
-      <div class="col-md-8" style="text-align:center; margin-top:40px;" >
-        <h1><%= @h %></h1>
-        <%= yield %>
-      </div>
-    
-      <div class="col-md-2">
-      </div>
-    
+    <div class="page-header">
+      <h1><%= @h %></h1>
     </div>
+    
+    <%= yield %>
+    
+    <!-- Hit Counter -->
+    <%= "Нас тут было #{ @@hit_counts } шт." %>
   </div><!-- /.container -->
     
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
+  
+  <!-- Bootstrap core JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="../../dist/js/bootstrap.min.js"></script>
-
-  <%= "Нас тут было #{ @@hit_counts } шт." %>
 </body>
 </html>
