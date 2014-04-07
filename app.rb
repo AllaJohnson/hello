@@ -31,8 +31,8 @@ get '/contacts' do
 end
 
 get '/products/:id' do 
-    @r = params[:id] 
-    @product = @@products[@r]
+   
+    @product = @@products[params[:id]]
     hit 
     erb :'products/show.html'  
 end
