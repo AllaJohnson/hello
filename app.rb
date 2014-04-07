@@ -1,7 +1,14 @@
 # encoding: utf-8
 require 'sinatra'
 
-
+@@products = {
+   "1" => { :name =>  "Хлеб", :cost => "30 руб.", :kind => "Бородинский" }, 
+   "2" => { :name =>  "Масло", :cost => "130 руб.", :kind => "Анкор" }, 
+   "3" => { :name =>  "Сахар", :cost => "62 руб.", :kind => "Кусковой" },
+   "4" => { :name =>  "Тортик", :cost => "630 руб.", :kind => "Нежность" }, 
+   "5" => { :name =>  "Сыр", :cost => "560 руб.", :kind => "Камамбер" } 
+}
+ 
 @@hit_counts = 0
 
 def hit
@@ -23,14 +30,14 @@ get '/contacts' do
   erb :'contacts.html'  
 end
 
+get '/products/:id' do 
+    @r = params[:id] 
+    @product = @@products[@r]
+    hit 
+    erb :'products/show.html'  
+end
+
 get '/products' do
   hit
-  @prods = [ 
-    { :name =>  "Хлеб", :cost => "32 руб.", :kind => "Бородинский" }, 
-    { :name =>  "Масло", :cost => "130 руб.", :kind => "Анкор" }, 
-    { :name =>  "Сахар", :cost => "62 руб.", :kind => "Кусковой" },
-    { :name =>  "Тортик", :cost => "630 руб.", :kind => "Нежность" }, 
-    { :name =>  "Сыр", :cost => "560 руб.", :kind => "Камамбер" } 
-    ]
-  erb :'products.html'
+  erb :'products/index.html'
 end
