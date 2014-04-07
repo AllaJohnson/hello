@@ -1,12 +1,6 @@
 <%= @page_header = "Продукт № #{params[:id]}" %>
-
-<ul>
-	<% params.each do |k, v| %> 
-	   <li><%= "Параметры URL: #{k}, #{v}" %></li>
-	<% end %>
-</ul>
- <br>
-
-<%= @product %>
-
 <br>
+<%= @@products[params[:id]] %>
+<br>
+<%= @product %>
+<br> 
