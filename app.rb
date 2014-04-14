@@ -26,7 +26,6 @@ get '/contacts' do
 end
 
 get '/products/:id' do 
-   @product = @@products.values_at params[:id]  
    hit 
     erb :'products/show.html'  
 end

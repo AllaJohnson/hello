@@ -1,10 +1,23 @@
 <% @page_header = 'ПРОДУКТЫ:' %> 
 
 <table class="table table-striped">
+	<thead>
+		<tr>
+			<th>№</th>
+			<th>Наименование</th>
+			<th>Цена</th>
+			<th>Категория</th>
+		</tr>
+	</thead>
+	<tbody>
 	<% @@db.execute( "select * from products" ) do |row| %>
 		<tr> 
-		 <td> <%= "№ продукта: #{row[0]}, Наименование: #{row[1]}, Цена:  #{row[2]}, Категория: #{row[3]}" %> </td>
+		 <td> <%= "#{row[0]}" %> </td>
+		 <td> <%= "#{row[1]}" %> </td>
+		 <td> <%= "#{row[2]}" %> </td>
+		 <td> <%= "#{row[3]}" %> </td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>	
 	<br>
