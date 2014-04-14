@@ -1,13 +1,8 @@
 # encoding: utf-8
 require 'sinatra'
+require 'sqlite3'
 
-@@products = {
-   "1" => { :name =>  "Хлеб", :cost => "30 руб.", :kind => "Бородинский" }, 
-   "2" => { :name =>  "Масло", :cost => "130 руб.", :kind => "Анкор" }, 
-   "3" => { :name =>  "Сахар", :cost => "62 руб.", :kind => "Кусковой" },
-   "4" => { :name =>  "Тортик", :cost => "630 руб.", :kind => "Нежность" }, 
-   "5" => { :name =>  "Сыр", :cost => "560 руб.", :kind => "Камамбер" } 
-}
+@@db = SQLite3::Database.new( "hello.db" )
  
 @@hit_counts = 0
 
@@ -31,9 +26,8 @@ get '/contacts' do
 end
 
 get '/products/:id' do 
-   @product = @@products.values_at params[:id]
-    
-    hit 
+   @product = @@products.values_at params[:id]  
+   hit 
     erb :'products/show.html'  
 end
 

@@ -1,9 +1,10 @@
 <% @page_header = 'ПРОДУКТЫ:' %> 
-<ul>
-	<% @@products.each do |k, v| %>
-	  <li> <%= "№ продукта: #{k}, Наименование: #{v[:name]}, Цена:  #{v[:cost]}, Категория: #{v[:kind]}" %> </li>
-	<% end %>
-</ul>
 
-	
-	
+<table class="table table-striped">
+	<% @@db.execute( "select * from products" ) do |row| %>
+		<tr> 
+		 <td> <%= "№ продукта: #{row[0]}, Наименование: #{row[1]}, Цена:  #{row[2]}, Категория: #{row[3]}" %> </td>
+		</tr>
+	<% end %>
+</table>	
+	<br>

@@ -1,6 +1,9 @@
-<%= @page_header = "Продукт № #{params[:id]}" %>
+<% @page_header = "Продукт № #{params[:id]}" %>
 <br>
-<%= @@products[params[:id]] %>
+<% @@db.execute( "select * from products where id=#{params[:id]}" ) do |row| %>
+<p> <%= "№ продукта: #{row[0]}, Наименование: #{row[1]}, Цена:  #{row[2]}, Категория: #{row[3]}" %> </p>
+<% end %>
+
 <br>
-<%= @product %>
-<br> 
+
+
