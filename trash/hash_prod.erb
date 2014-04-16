@@ -1,7 +1,13 @@
 # encoding: utf-8
 require 'sinatra'
 require 'sqlite3'
-
+@products = {
+   "1" => { :name =>  "bread", :cost => "30 ", :kind => "Borodinskii" }, 
+   "2" => { :name =>  "butter", :cost => "130 ", :kind => "Ancor" }, 
+   "3" => { :name =>  "shugar", :cost => "62 ", :kind => "Brown" },
+   "4" => { :name =>  "cake", :cost => "630 ", :kind => "Niome" }, 
+   "5" => { :name =>  "cheese", :cost => "560 ", :kind => "Camamber" }
+}
 @@products = {
    "1" => { :name =>  "Хлеб", :cost => "30 руб.", :kind => "Бородинский" }, 
    "2" => { :name =>  "Масло", :cost => "130 руб.", :kind => "Анкор" }, 

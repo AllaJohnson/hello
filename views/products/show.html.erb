@@ -10,12 +10,12 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% @@db.execute( "select * from products where id=#{params[:id]}" ) do |row| %>
+	<% @product.each do |row| %>
 		<tr> 
-		 <td> <%= "#{row[0]}" %> </td>
-		 <td> <%= "#{row[1]}" %> </td>
-		 <td> <%= "#{row[2]}" %> </td>
-		 <td> <%= "#{row[3]}" %> </td>
+		 <td> <%= row[0] %> </td>
+		 <td> <%= row[1] %> </td>
+		 <td> <%= row[2] %> </td>
+		 <td> <%= row[3] %> </td>
 		</tr>
 	<% end %>
 	</tbody>
