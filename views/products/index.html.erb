@@ -13,11 +13,11 @@
 	<% @products.each do |row| %>
 		<tr> 
 		 <td> <%= row[0] %> </td>
-		 <td> <%= row[1] %> </td>
+		 <td> <a href='/products/<%= row[0] %>' ><%= row[1] %></a> </td>
 		 <td> <%= row[2] %> </td>
 		 <td> <%= row[3] %> </td>
 		</tr>
 	<% end %>
 	</tbody>
 </table>	
-	<br>
+<br>

@@ -1,52 +1,62 @@
 # encoding: utf-8
-require 'sinatra'
 require 'sqlite3'
 require 'json'
-require 'sinatra/respond_with'
-require "sinatra/json"
-require 'sinatra/content_for'
-# With Sinatra::RespondWith
- # get '/' do
-   # respond_with :index, :name => 'example' do |format|
-    # format.txt { 'just an example' }
-    # format.json { json @products }  
-  # end
-# end
+require 'sinatra'
 
-@@db = SQLite3::Database.new( "hello.db" )
- 
-@@hit_counts = 0
+# Initializing Sinatra::RespondTo 
+require 'sinatra/respond_to'
+Sinatra::Application.register Sinatra::RespondTo
 
-def hit
-  @@hit_counts += 1
+# Require all *.rb files from /lib folder
+Dir["./lib/*.rb"].each {|file| require file }
+
+
+# Createing database instance 
+@@db = SQLite3::Database.new( "db/hello.db" )
+
+# Before filters are evaluated before each request 
+before do
+  hit # incrase hit counter
+  log("request to page: #{request.path_info}") # Log request page
 end
 
+# HOME PAGE
 get '/' do
-  hit
-  erb :'index.html'
+  erb :index
 end 
- 
+
+# ABOUT 
 get '/about' do
-   hit
-  erb :'about.html'
+  erb :about
 end 
  
+# CONTACTS 
 get '/contacts' do 
-  hit 
-  erb :'contacts.html'  
+  erb :contacts  
 end
 
-get '/products/:id' do 
-  @product = @@db.execute( "select * from products where id=#{params[:id]}" )
-   hit 
-    erb :'products/show.html'  
-end
 
+# PRODUCTS - INDEX
+# GET - /products/  
 get '/products' do
-  @products = @@db.execute( "select * from products" ) 
-  respond_with 'products/index.html' do |format|
-    format.json { json @products }
+  @products = @@db.execute( "select * from products" )
+
+  respond_to do |wants| 
+    wants.html { erb :'products/index' } 
+    wants.json { @products.to_json } 
   end
-  hit
- # erb :'products/index.html'
 end
+
+
+# PRODUCTS - SHOW
+# GET - /products/1
+get '/products/:id' do
+  @product = @@db.execute( "select * from products where id=#{params[:id]}" )
+
+  respond_to do |wants| 
+    wants.html { erb :'products/show' } 
+    wants.json { @product.to_json } 
+  end
+end
+
+
