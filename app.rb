@@ -13,6 +13,7 @@ Dir["./lib/*.rb"].each {|file| require file }
 
 # Createing database instance 
 @@db = SQLite3::Database.new( "db/hello.db" )
+@@db.results_as_hash = true
 
 # Before filters are evaluated before each request 
 before do
@@ -40,8 +41,7 @@ end
 # GET - /products/  
 get '/products' do
   @products = @@db.execute( "select * from products" )
-
-  respond_to do |wants| 
+respond_to do |wants| 
     wants.html { erb :'products/index' } 
     wants.json { @products.to_json } 
   end
