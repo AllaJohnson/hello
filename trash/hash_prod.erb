@@ -22,3 +22,18 @@ require 'sqlite3'
 	<% end %>
 </ul>
 <br>
+[
+{:id => 1, :name => "Бородинский", :cost => 30, :category_id => 1},
+{:id => 2, :name => "Настюша", :cost => 30, :category_id => 1},
+{:id => 3, :name => "Мультизерновой", :cost => 73, :category_id => 1}
+]
+@products = [
+    [ 1, "Borodinskii", "30 ", "bread" ], 
+    [ 2, "butter", "130 ", "Ancor" ], 
+    [ 3,  "shugar",  "62 ",  "Brown" ]
+   
+]
+<%= @products_hash = @products.each { |result| puts Hash[result.zip(@column_name)].invert } %>
+
+columns, *rows = @@db.execute2( "select * from products" )
+@products = rows.inject([]) { |sum, p| sum  << Hash[columns.zip(p)] }
