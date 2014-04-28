@@ -47,6 +47,21 @@ get '/products' do
   end
 end
 
+# PRODUCTS - NEW
+# GET - /products/new
+get '/products/new' do
+  respond_to do |wants| 
+       wants.html { erb :'products/new' } 
+       wants.json { @product.to_json } 
+  end 
+end
+
+# PRODUCTS - CREATE
+# POST - /products
+post '/products' do
+   @product = @@db.execute( "insert into products values ( 'id', 'name', 'cost', 'category_id' ) " )
+end
+
 # PRODUCTS - SHOW
 # GET - /products/1
 get '/products/:id' do
@@ -57,32 +72,26 @@ get '/products/:id' do
   end
 end
 
-# PRODUCTS - NEW
-# GET - /products/:id/new
-get '/products/:id/new' do
-  respond_to do |wants| 
-       wants.html { erb :'products/new' } 
-       wants.json { @product.to_json } 
-  end 
-end
-
- # PRODUCTS - CREATE
-# POST - /products/:id/new
-post '/products/:id/new' do
-   @product = @@db.execute( "insert into products values ( 'id', 'name', 'cost', 'category_id' )" )
-end
-
 # PRODUCTS - EDIT
 # GET - /products/:id/edit
 get '/products/:id/edit' do
   respond_to do |wants| 
       wants.html { erb :'products/edit' } 
-      wants.json { @p.to_json } 
+      wants.json { @product.to_json } 
   end
 end
       
 # PRODUCTS - UPDATE
-# PUT - /products/:id/edit
-put '/products/:id/edit' do
-@product = @@db.execute( "update into products values ( 'id', 'name', 'cost', 'category_id' )" )  
+# PUT - /products/:id
+put '/products/:id' do
+  @product = @@db.execute( "select * from products where id= #{params[:id]}" )
+  @product.update  
 end
+
+# PRODUCTS - DELETE
+# POST - /products/:id/destroy
+post '/products/:id/destroy' do
+   @product = @@db.execute( "select * from products where id= #{params[:id]}" )
+   @product.delete
+end
+
