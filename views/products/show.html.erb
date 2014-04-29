@@ -11,14 +11,12 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% @product do |product| %>
 		<tr> 
-		 <td> <%= product['id'] %> </td>
-		 <td> <%= product['name'] %> </td>
-		 <td> <%= product['cost'] %> </td>
-		 <td> <%= product['category_id'] %> </td>
+		 <td> <%= @product['id'] %> </td>
+		 <td> <%= @product['name'] %> </td>
+		 <td> <%= @product['cost'] %> </td>
+		 <td> <%= @product['category_id'] %> </td>
 		</tr>
-	<% end %>
 	</tbody>
 </table> 	
 <br>
