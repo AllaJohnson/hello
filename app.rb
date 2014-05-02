@@ -56,9 +56,7 @@ end
 # PRODUCTS - CREATE
 # POST - /products
 post '/products' do
-  @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )
-   log "my_params #{params}"
-   log @product  
+  @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
    respond_to do |wants| 
         wants.html { erb :'products/new' } 
         wants.json { @product.to_json } 
@@ -85,14 +83,15 @@ end
       
 # PRODUCTS - UPDATE
 # PUT - /products/:id
-post '/products/:id' do
-  @produ_ct = @@db.execute( "update products set 'name' = '#{params['name']}', 'cost' = #{params['cost']}, 'category_id' = #{params['category_id']} where id= #{params[:id]}" )
-  log @produ_ct
-  log params  
+put "/products/:id" do
+  @product = @@db.execute( "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}" )
+  log "MY_PARAMS #{params}" 
+  log "MY_PRODUCT #{@product}" 
   respond_to do |wants| 
     wants.html { erb :'products/edit' } 
-    wants.json { @produ_ct.to_json } 
+    wants.json { @product.to_json } 
   end
+  #redirect "products/#{params["id"]}"
 end
 
 # PRODUCTS - DELETE
