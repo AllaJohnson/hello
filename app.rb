@@ -91,7 +91,7 @@ put "/products/:id" do
     wants.html { erb :'products/edit' } 
     wants.json { @product.to_json } 
   end
-  #redirect "products/#{params["id"]}"
+  redirect "products/#{@product["id"]}"
 end
 
 # PRODUCTS - DELETE
