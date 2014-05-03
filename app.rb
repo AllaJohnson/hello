@@ -83,21 +83,18 @@ end
       
 # PRODUCTS - UPDATE
 # PUT - /products/:id
-put "/products/:id" do
+put '/products/:id' do
   @product = @@db.execute( "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}" )
-  log "MY_PARAMS #{params}" 
-  log "MY_PRODUCT #{@product}" 
-  respond_to do |wants| 
-    wants.html { erb :'products/edit' } 
-    wants.json { @product.to_json } 
-  end
-  redirect "products/#{@product["id"]}"
+  log "MY_PARAMS #{params}"  
+  redirect "/products"
 end
 
+
 # PRODUCTS - DELETE
-# POST - /products/:id/destroy
-post '/products/:id/destroy' do
-   @product = @@db.execute( "select * from products where id= #{params[:id]}" )
-   @product.delete
+# GET - /products/:id/destroy
+get '/products/:id/destroy' do
+   @product = @@db.execute( "delete from products where id= #{params[:id]}" )
+   redirect "/products"
+
 end
 

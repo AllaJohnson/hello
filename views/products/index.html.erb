@@ -12,14 +12,15 @@
 	<tbody>
 	<% @products.each do |product| %>
 		<tr> 
-		 <td> <a href='/products/<%= product['id'] %>/edit'><%= product['id'] %></a></td>
+		 <td> <%= product['id'] %></a></td>
 		 <td> <a href='/products/<%= product['id'] %>'><%= product['name'] %></a> </td>
 		 <td> <%= product['cost'] %> </td>
 		 <td> <%= product['category_id'] %> </td>
-		</tr>
+		 <td> <a href='/products/<%= product['id'] %>/edit'>Редактировать</a></td>
+		 <td> <a href='/products/<%= product['id'] %>/destroy'>Удалить</a></td>
+		 </tr>
 	<% end %>
 	</tbody>
 </table>	
 <br>
 <strong><a href="/products/new">Добавить продукт</a></strong>
-<strong><a href="/products/:id/edit">Редактировать продукт</a></strong>
