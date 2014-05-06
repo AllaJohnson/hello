@@ -14,10 +14,18 @@
 		<tr> 
 		 <td> <%= product['id'] %></a></td>
 		 <td> <a href='/products/<%= product['id'] %>'><%= product['name'] %></a> </td>
-		 <td> <%= product['cost'] %> </td>
-		 <td> <%= product['category_id'] %> </td>
+		 <td> <%= product['cost'] %> руб.</td>
+		 <td> <%= product['category'] %> </td>
 		 <td> <a href='/products/<%= product['id'] %>/edit'>Редактировать</a></td>
-		 <td> <a href='/products/<%= product['id'] %>/destroy'>Удалить</a></td>
+		
+			<td>
+				<form method="post" action="/products/<%= product['id'] %>"> 
+				   <input type="hidden" name="_method" value="delete">
+				   <button type="submit">Удалить</button>
+				</form>
+			</td>
+		
+		
 		 </tr>
 	<% end %>
 	</tbody>

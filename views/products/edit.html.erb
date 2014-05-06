@@ -1,14 +1,24 @@
 <html>
 <h1>Редактирование продукта</h1>
  <form method="post" action="/products/<%= @product['id'] %>" >
+   <input type="hidden" name="_method" value="put" /><br>
    
-   Название:<br>
+	 Название:<br>
    <input type="text" name="name" value= <%= @product['name'] %> size="50"><br><br>
    Цена:<br>
-   <input type="text" name="cost" value= <%= @product['cost'] %> size="5"><br><br>
+   <input type="text" name="cost" value= <%= @product['cost'] %> size="5">руб.<br><br>
    Категория:<br>
-   <input type="text" name="category_id" value= <%= @product['category_id'] %> size="5"><br><br>
-   <input type="hidden" name="_method" value="put" /><br>
+   	<p>
+			<select name="category_id" class="selectpicker">
+				<% @categories.each do |category| %>
+					<option value="<%= category['id'] %>"><%= category['name'] %></option>
+				<% end %>
+			</select>
+		</p>
+ 
+   <!-- <input type="text" name="category_id" value= <%= @product['category_id'] %> size="5"> -->
+   <br><br>
+
    <input type="submit" name="submit" value="Обновить">
 </form>
 <html>

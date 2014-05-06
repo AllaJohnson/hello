@@ -40,7 +40,16 @@ end
 # PRODUCTS - INDEX
 # GET - /products/  
 get '/products' do
-  @products = @@db.execute( "select * from products" )
+  q = 'SELECT products.id AS id, 
+              products.name AS name, 
+              products.cost AS cost,
+              categories.name AS category 
+              FROM products 
+      JOIN categories
+      ON products.category_id = categories.id'
+
+  @products = @@db.execute(q)
+
   respond_to do |wants| 
     wants.html { erb :'products/index' } 
     wants.json { @products.to_json } 
@@ -50,6 +59,7 @@ end
 # PRODUCTS - NEW
 # GET - /products/new
 get '/products/new' do
+   @categories = @@db.execute('SELECT * FROM categories')
    erb :'products/new' 
 end
 
@@ -57,17 +67,19 @@ end
 # POST - /products
 post '/products' do
   @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
-   respond_to do |wants| 
-        wants.html { erb :'products/new' } 
-        wants.json { @product.to_json } 
-   end
-   redirect 'products'
+
+  respond_to do |wants| 
+    wants.html { redirect '/products' } 
+    wants.json { @product.to_json } 
+  end
 end
 
 # PRODUCTS - SHOW
 # GET - /products/1
 get '/products/:id' do
+  
   @product = @@db.execute( "select * from products where id= #{params[:id]}" ).first
+  @categories = @@db.execute( "SELECT name FROM categories where id= #{@product['category_id']}" ).first
   respond_to do |wants| 
     wants.html { erb :'products/show' } 
     wants.json { @product.to_json } 
@@ -78,6 +90,7 @@ end
 # GET - /products/:id/edit
 get '/products/:id/edit' do
   @product = @@db.execute( "select * from products where id= #{params[:id]}" ).first
+  @categories = @@db.execute('SELECT * FROM categories')
   erb :'products/edit' 
 end
       
@@ -92,9 +105,8 @@ end
 
 # PRODUCTS - DELETE
 # GET - /products/:id/destroy
-get '/products/:id/destroy' do
+delete '/products/:id' do
    @product = @@db.execute( "delete from products where id= #{params[:id]}" )
    redirect "/products"
-
 end
 

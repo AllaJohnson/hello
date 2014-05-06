@@ -5,9 +5,17 @@
     Название:<br>
     <input type="text" name="name" size="50"><br><br>
     Цена:<br>
-    <input type="text" name="cost" size="5"><br><br>
+    <input type="text" name="cost" size="5">руб.<br><br>
     Категория:<br>
-    <input type="text" name="category_id" size="5"><br><br><br>
+		<p>
+			<select name="category_id" class="selectpicker">
+				<% @categories.each do |category| %>
+					<option value="<%= category['id'] %>"><%= category['name'] %></option>
+				<% end %>
+			</select>
+		</p>
+		<br>
+    <!-- <input type="text" name="category_id" size="5"><br><br><br> -->
     <input type="submit" name="submit" value="Создать">
 </form>
 
