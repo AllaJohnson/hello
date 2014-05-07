@@ -7,13 +7,16 @@ require 'sinatra'
 require 'sinatra/respond_to'
 Sinatra::Application.register Sinatra::RespondTo
 
-# Require all *.rb files from /lib folder
+# Require all *.rb files from /lib and /model folders
 Dir["./lib/*.rb"].each {|file| require file }
+Dir["./model/*.rb"].each {|file| require file }
+
 
 
 # Createing database instance 
 @@db = SQLite3::Database.new( "db/hello.db" )
 @@db.results_as_hash = true
+
 
 # Before filters are evaluated before each request 
 before do
@@ -40,15 +43,16 @@ end
 # PRODUCTS - INDEX
 # GET - /products/  
 get '/products' do
-  q = 'SELECT products.id AS id, 
-              products.name AS name, 
-              products.cost AS cost,
-              categories.name AS category 
-              FROM products 
-      JOIN categories
-      ON products.category_id = categories.id'
+  # q = 'SELECT products.id AS id, 
+  #               products.name AS name, 
+  #               products.cost AS cost,
+  #               categories.name AS category 
+  #               FROM products 
+  #       JOIN categories
+  #       ON products.category_id = categories.id'
 
-  @products = @@db.execute(q)
+  # @products = @@db.execute(q)
+  @products = Product.all
 
   respond_to do |wants| 
     wants.html { erb :'products/index' } 
