@@ -43,35 +43,27 @@ end
 # PRODUCTS - INDEX
 # GET - /products/  
 get '/products' do
-  # q = 'SELECT products.id AS id, 
-  #               products.name AS name, 
-  #               products.cost AS cost,
-  #               categories.name AS category 
-  #               FROM products 
-  #       JOIN categories
-  #       ON products.category_id = categories.id'
-
-  # @products = @@db.execute(q)
-  @products = Product.all
-
-  respond_to do |wants| 
+ @products = Product.all
+ respond_to do |wants| 
     wants.html { erb :'products/index' } 
     wants.json { @products.to_json } 
-  end
+ end
 end
 
 # PRODUCTS - NEW
 # GET - /products/new
 get '/products/new' do
+   @product = Product.new
    @categories = @@db.execute('SELECT * FROM categories')
+   log "MY_PRODUCT #{@product}"
    erb :'products/new' 
 end
 
 # PRODUCTS - CREATE
 # POST - /products
 post '/products' do
-  @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
-
+  # @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
+  @product = Product.create( params['name'], params['cost'], params['category_id'] )
   respond_to do |wants| 
     wants.html { redirect '/products' } 
     wants.json { @product.to_json } 
@@ -81,9 +73,7 @@ end
 # PRODUCTS - SHOW
 # GET - /products/1
 get '/products/:id' do
-  
-  @product = @@db.execute( "select * from products where id= #{params[:id]}" ).first
-  @categories = @@db.execute( "SELECT name FROM categories where id= #{@product['category_id']}" ).first
+  @product = Product.find(params[:id])
   respond_to do |wants| 
     wants.html { erb :'products/show' } 
     wants.json { @product.to_json } 
@@ -93,7 +83,7 @@ end
 # PRODUCTS - EDIT
 # GET - /products/:id/edit
 get '/products/:id/edit' do
-  @product = @@db.execute( "select * from products where id= #{params[:id]}" ).first
+  @product = Product.find(params[:id])
   @categories = @@db.execute('SELECT * FROM categories')
   erb :'products/edit' 
 end
