@@ -53,7 +53,7 @@ end
 # PRODUCTS - NEW
 # GET - /products/new
 get '/products/new' do
-   @product = Product.new
+   # @product = Product.new
    @categories = @@db.execute('SELECT * FROM categories')
    log "MY_PRODUCT #{@product}"
    erb :'products/new' 
@@ -62,8 +62,8 @@ end
 # PRODUCTS - CREATE
 # POST - /products
 post '/products' do
-  # @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
-  @product = Product.create( params['name'], params['cost'], params['category_id'] )
+  @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
+  # @product = Product.create( params['name'], params['cost'], params['category_id'] )
   respond_to do |wants| 
     wants.html { redirect '/products' } 
     wants.json { @product.to_json } 
