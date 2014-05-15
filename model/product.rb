@@ -2,10 +2,10 @@ class Product
   attr_accessor :id, :name, :cost, :category_id
        
   def initialize( my_arg = {} )
-    @id = my_arg[:id]
-    @name = my_arg[:name]
-    @cost = my_arg[:cost]
-    @category_id = my_arg[:category_id]
+    @id = my_arg["id"]
+    @name = my_arg["name"]
+    @cost = my_arg["cost"]
+    @category_id = my_arg["category_id"]
   end
   
   def self.all
@@ -22,7 +22,7 @@ class Product
   def self.find(id)
     q = "SELECT * FROM products where id = #{id}"
     result = @@db.execute(q).first 
-    product = Product.new( :id => result["id"], :name => result["name"], :cost => result["cost"], :category_id => result["category_id"] )
+    product = Product.new( result )
   end
    # def self.new
    #        
