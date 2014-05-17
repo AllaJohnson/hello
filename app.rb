@@ -74,6 +74,7 @@ end
 # GET - /products/1
 get '/products/:id' do
   @product = Product.find(params[:id])
+  log "MY_PRODUCT #{@product}"
   respond_to do |wants| 
     wants.html { erb :'products/show' } 
     wants.json { @product.to_json } 
@@ -98,9 +99,9 @@ end
 
 
 # PRODUCTS - DELETE
-# GET - /products/:id/destroy
+# GET - /products/:id
 delete '/products/:id' do
-   @product = @@db.execute( "delete from products where id= #{params[:id]}" )
-   redirect "/products"
+  @product = Product.delete(params[:id])
+  redirect "/products"
 end
 

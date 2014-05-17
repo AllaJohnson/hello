@@ -1,6 +1,6 @@
 class Product
   attr_accessor :id, :name, :cost, :category_id
-       
+      
   def initialize( my_arg = {} )
     @id = my_arg["id"]
     @name = my_arg["name"]
@@ -35,10 +35,10 @@ class Product
   #     q = "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}"
   #      @@db.execute(q)
   #   end
-  #   def self.delete
-  #     q = "delete from products where id= #{params[:id]}"
-  #      @@db.execute(q)
-  #   end
+    def self.delete(id)
+            q = "delete from products where id= #{id}"
+             @@db.execute(q)
+          end
 end
 
   
