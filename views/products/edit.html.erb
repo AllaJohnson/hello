@@ -1,12 +1,12 @@
 <html>
 <h1>Редактирование продукта</h1>
- <form method="post" action="/products/<%= @product['id'] %>" >
+ <form method="post" action="/products/<%= @product.id %>" >
    <input type="hidden" name="_method" value="put" /><br>
    
 	 Название:<br>
-   <input type="text" name="name" value= <%= @product['name'] %> size="50"><br><br>
+   <input type="text" name="name" value= <%= @product.name %> size="50"><br><br>
    Цена:<br>
-   <input type="text" name="cost" value= <%= @product['cost'] %> size="5">руб.<br><br>
+   <input type="text" name="cost" value= <%= @product.cost %> size="5">руб.<br><br>
    Категория:<br>
    	<p>
 			<select name="category_id" class="selectpicker">

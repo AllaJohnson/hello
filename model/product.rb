@@ -1,11 +1,12 @@
 class Product
   attr_accessor :id, :name, :cost, :category_id
       
-  def initialize( my_arg = {} )
-    @id = my_arg["id"]
-    @name = my_arg["name"]
-    @cost = my_arg["cost"]
-    @category_id = my_arg["category_id"]
+  def initialize( args )
+    @id = args["id"]
+    @name = args["name"]
+    @cost = args["cost"]
+    @category_id = args["category_id"]
+     puts "MY_INITIALIZE #{args}"
   end
   
   def self.all
@@ -19,11 +20,47 @@ class Product
      @@db.execute(q)
   end  
   
-  def self.find(id)
+  def self.find( id )
     q = "SELECT * FROM products where id = #{id}"
-    result = @@db.execute(q).first 
+    result = @@db.execute(q).first
+    return nil if result == nil 
     product = Product.new( result )
+    
   end
+  
+  def self.create( args )
+      q = "INSERT INTO products values ( ?, '#{args["name"]}', #{args["cost"]}, #{args["category_id"]} )"
+      @@db.execute(q)
+
+      last_id = @@db.last_insert_row_id
+      return 'error' if last_id == 0
+
+      Product.find(last_id)
+  end
+  
+  def update( args )
+    @name= args["name"]
+    @cost= args["cost"]
+    @category_id= args["category_id"]
+    @@db.execute( "UPDATE products set name = '#{args["name"]}', cost = #{args["cost"]}, category_id = #{args["category_id"]} where id = #{self.id}" )
+  end  
+  
+  # def save
+  #               q = "INSERT INTO products values (?, '#{product.name}', #{product.cost}, #{product.category_id}"
+  #      result = @@db.execute(q).first 
+  #      product = Product.new( result )
+  #    end
+    
+  
+  # def self.persisted?(id)
+  #     q = "SELECT * FROM products where id = #{id}"
+  #     result = @@db.execute(q).first 
+  #     if product = Product.new( result ) = true 
+  #       product.update = @@db.execute( "UPDATE products set name = '#{product.name}', cost= #{product.cost}, category_id= #{product.category_id} where id=  #{id}")
+  #     else
+  #       product.new = @@db.execute( "INSERT INTO products values (?, '#{product.name}', #{product.cost}, #{product.category_id} ")
+  #     end
+  # end    
    # def self.new
    #        
    #    end
@@ -35,10 +72,10 @@ class Product
   #     q = "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}"
   #      @@db.execute(q)
   #   end
-    def self.delete(id)
-            q = "delete from products where id= #{id}"
+    def destroy
+            q = "delete from products where id= #{self.id}"
              @@db.execute(q)
-          end
+    end
 end
 
   

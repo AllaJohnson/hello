@@ -53,7 +53,6 @@ end
 # PRODUCTS - NEW
 # GET - /products/new
 get '/products/new' do
-   # @product = Product.new
    @categories = @@db.execute('SELECT * FROM categories')
    log "MY_PRODUCT #{@product}"
    erb :'products/new' 
@@ -62,8 +61,8 @@ end
 # PRODUCTS - CREATE
 # POST - /products
 post '/products' do
-  @product = @@db.execute( "insert into products values ( ?, '#{params['name']}', #{params['cost']}, #{params['category_id']} ) " )  
-  # @product = Product.create( params['name'], params['cost'], params['category_id'] )
+  @product = Product.create(params)
+  log "MY_PARAMS #{params}"
   respond_to do |wants| 
     wants.html { redirect '/products' } 
     wants.json { @product.to_json } 
@@ -74,7 +73,6 @@ end
 # GET - /products/1
 get '/products/:id' do
   @product = Product.find(params[:id])
-  log "MY_PRODUCT #{@product}"
   respond_to do |wants| 
     wants.html { erb :'products/show' } 
     wants.json { @product.to_json } 
@@ -92,16 +90,19 @@ end
 # PRODUCTS - UPDATE
 # PUT - /products/:id
 put '/products/:id' do
-  @product = @@db.execute( "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}" )
+  @product = Product.find(params[:id])
+  @product.update(params)
+  # @product = @@db.execute( "update products set name = '#{params['name']}', cost= #{params['cost']}, category_id= #{params['category_id']} where id= #{params[:id]}" )
   log "MY_PARAMS #{params}"  
   redirect "/products"
 end
 
 
-# PRODUCTS - DELETE
+# PRODUCTS - DESTROY
 # GET - /products/:id
 delete '/products/:id' do
-  @product = Product.delete(params[:id])
+  @product = Product.find(params[:id])
+  @product.destroy
   redirect "/products"
 end
 
